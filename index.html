@@ -1,87 +1,654 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="de">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000; min-height: 16.0px}
-    span.s1 {font-kerning: none}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>30 Tage Plank Challenge</title>
+
+<style>
+
+body{
+  margin:0;
+  padding:20px;
+  background:#f1f5f9;
+  font-family:system-ui,sans-serif;
+  color:#172033;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+}
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+h1{
+  margin-top:0;
+  font-size:38px;
+}
+
+.subtitle{
+  color:#64748b;
+  margin-top:-8px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.stat{
+  background:#f8fafc;
+  border-radius:18px;
+  padding:16px;
+}
+
+.stat-label{
+  color:#64748b;
+  font-size:14px;
+}
+
+.stat-value{
+  font-size:28px;
+  font-weight:900;
+  margin-top:6px;
+}
+
+form{
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr 1fr auto;
+  gap:12px;
+  margin-top:24px;
+}
+
+input,
+select,
+button{
+  border:none;
+  border-radius:16px;
+  padding:14px;
+  font-size:16px;
+}
+
+input,
+select{
+  background:#f8fafc;
+  border:1px solid #dbe4ee;
+}
+
+button{
+  background:#2563eb;
+  color:white;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.chart{
+  width:100%;
+  height:340px;
+  overflow:hidden;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,
+td{
+  padding:12px;
+  border-bottom:1px solid #e2e8f0;
+  text-align:left;
+}
+
+th{
+  background:#f8fafc;
+}
+
+.delete-btn{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.reset-btn{
+  background:#ef4444;
+  margin-top:16px;
+}
+
+.save-ok{
+  color:#16a34a;
+  font-weight:700;
+}
+
+@media(max-width:800px){
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  form{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:520px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+}
+
+</style>
 </head>
+
 <body>
-<p class="p1"><span class="s1">&lt;h1&gt;💪 30 Tage Plank Challenge&lt;/h1&gt;</span></p>
-<p class="p1"><span class="s1">&lt;div class="subtitle"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>Familien Battle Edition 😄</span></p>
-<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;p class="save-ok"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>✅ Daten werden automatisch gespeichert</span></p>
-<p class="p1"><span class="s1">&lt;/p&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;div class="stats"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;Einträge&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-value" id="count"&gt;0&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;Gesamtzeit&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-value" id="total"&gt;0:00&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;Beste Zeit&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-value" id="best"&gt;0:00&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="stat"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-label"&gt;Ø Zeit&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="stat-value" id="avg"&gt;0:00&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;form id="form"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;select id="person"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;option&gt;Papa&lt;/option&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;option&gt;Nora&lt;/option&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;option&gt;Noan&lt;/option&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/select&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;input id="day" type="number" min="1" max="30" value="1"/&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;input id="min" type="number" min="0" value="0"/&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;input id="sec" type="number" min="0" max="59" value="30"/&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;button&gt;Speichern&lt;/button&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;button class="reset-btn" id="reset"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>Alles löschen</span></p>
-<p class="p1"><span class="s1">&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1">&lt;h2&gt;Einträge&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;table&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;thead&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;tr&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;th&gt;Tag&lt;/th&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;th&gt;Person&lt;/th&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;th&gt;Zeit&lt;/th&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;th&gt;&lt;/th&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/tr&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/thead&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;tbody id="table"&gt;&lt;/tbody&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/table&gt;</span></p>
+
+<div class="container">
+
+  <div class="card">
+
+    <h1>💪 30 Tage Plank Challenge</h1>
+
+    <div class="subtitle">
+      Familien Battle Edition 😄
+    </div>
+
+    <p class="save-ok">
+      ✅ Daten werden automatisch gespeichert
+    </p>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="stat-label">Einträge</div>
+        <div class="stat-value" id="count">0</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Gesamtzeit</div>
+        <div class="stat-value" id="total">0:00</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Beste Zeit</div>
+        <div class="stat-value" id="best">0:00</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">Ø Zeit</div>
+        <div class="stat-value" id="avg">0:00</div>
+      </div>
+
+    </div>
+
+    <form id="form">
+
+      <select id="person">
+        <option>Papa</option>
+        <option>Nora</option>
+        <option>Noan</option>
+      </select>
+
+      <input id="day" type="number" min="1" max="30" value="1">
+
+      <input id="min" type="number" min="0" value="0">
+
+      <input id="sec" type="number" min="0" max="59" value="30">
+
+      <button type="submit">
+        Speichern
+      </button>
+
+    </form>
+
+    <button class="reset-btn" id="reset">
+      Alles löschen
+    </button>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Tägliche Zeiten</h2>
+
+    <div id="lineChart" class="chart"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Gesamtstunden</h2>
+
+    <div id="barChart" class="chart"></div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Einträge</h2>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Tag</th>
+          <th>Person</th>
+          <th>Zeit</th>
+          <th></th>
+        </tr>
+
+      </thead>
+
+      <tbody id="table"></tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<script>
+
+const STORAGE_KEY = "plankChallenge2026";
+
+const people = [
+  "Papa",
+  "Nora",
+  "Noan"
+];
+
+const colors = [
+  "#2563eb",
+  "#16a34a",
+  "#f97316"
+];
+
+let data = loadData();
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function loadData(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(STORAGE_KEY)
+    ) || [];
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
+
+}
+
+function formatTime(seconds){
+
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+
+  return m + ":" + String(s).padStart(2,"0");
+
+}
+
+$("form").addEventListener("submit", function(e){
+
+  e.preventDefault();
+
+  const person = $("person").value;
+
+  const day = Number(
+    $("day").value
+  );
+
+  const minutes = Number(
+    $("min").value || 0
+  );
+
+  const seconds = Number(
+    $("sec").value || 0
+  );
+
+  const total = minutes * 60 + seconds;
+
+  if(
+    day < 1 ||
+    day > 30 ||
+    total <= 0
+  ){
+    alert("Bitte gültige Werte eingeben.");
+    return;
+  }
+
+  const existing = data.findIndex(x =>
+    x.person === person &&
+    x.day === day
+  );
+
+  const entry = {
+    person,
+    day,
+    seconds: total
+  };
+
+  if(existing >= 0){
+
+    data[existing] = entry;
+
+  }else{
+
+    data.push(entry);
+
+  }
+
+  saveData();
+
+  render();
+
+  $("day").value = Math.min(30, day + 1);
+
+});
+
+$("reset").addEventListener("click", function(){
+
+  if(confirm("Wirklich alles löschen?")){
+
+    data = [];
+
+    saveData();
+
+    render();
+
+  }
+
+});
+
+function renderStats(){
+
+  const total = data.reduce(
+    (sum,e)=>sum+e.seconds,
+    0
+  );
+
+  const best = data.reduce(
+    (max,e)=>Math.max(max,e.seconds),
+    0
+  );
+
+  const avg = data.length
+    ? Math.round(total / data.length)
+    : 0;
+
+  $("count").textContent = data.length;
+  $("total").textContent = formatTime(total);
+  $("best").textContent = formatTime(best);
+  $("avg").textContent = formatTime(avg);
+
+}
+
+function renderTable(){
+
+  const rows = data
+    .slice()
+    .sort((a,b)=>a.day-b.day);
+
+  $("table").innerHTML = rows.length
+
+  ? rows.map((e,i)=>`
+
+    <tr>
+      <td>Tag ${e.day}</td>
+      <td>${e.person}</td>
+      <td>${formatTime(e.seconds)}</td>
+
+      <td>
+        <button
+          class="delete-btn"
+          onclick="removeEntry(${i})"
+        >
+          Löschen
+        </button>
+      </td>
+
+    </tr>
+
+  `).join("")
+
+  : `
+    <tr>
+      <td colspan="4">
+        Noch keine Einträge 💪
+      </td>
+    </tr>
+  `;
+
+}
+
+function removeEntry(index){
+
+  data.splice(index,1);
+
+  saveData();
+
+  render();
+
+}
+
+function renderLineChart(){
+
+  const w = 1000;
+  const h = 320;
+  const pad = 50;
+
+  const max = Math.max(
+    60,
+    ...data.map(e=>e.seconds)
+  );
+
+  let svg = `
+    <svg
+      viewBox="0 0 ${w} ${h}"
+      width="100%"
+      height="100%"
+    >
+
+      <line
+        x1="${pad}"
+        y1="${h-pad}"
+        x2="${w-20}"
+        y2="${h-pad}"
+        stroke="#cbd5e1"
+      />
+
+      <line
+        x1="${pad}"
+        y1="20"
+        x2="${pad}"
+        y2="${h-pad}"
+        stroke="#cbd5e1"
+      />
+  `;
+
+  people.forEach((person,index)=>{
+
+    const points = [];
+
+    for(let day=1; day<=30; day++){
+
+      const entry = data.find(e =>
+        e.person === person &&
+        e.day === day
+      );
+
+      if(entry){
+
+        const x =
+          pad +
+          (day-1) *
+          (w-pad-40) / 29;
+
+        const y =
+          (h-pad) -
+          entry.seconds/max *
+          (h-pad-30);
+
+        points.push([x,y]);
+
+      }
+
+    }
+
+    if(points.length){
+
+      svg += `
+        <polyline
+          fill="none"
+          stroke="${colors[index]}"
+          stroke-width="5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          points="${points.map(
+            p=>p.join(",")
+          ).join(" ")}"
+        />
+      `;
+
+    }
+
+  });
+
+  svg += "</svg>";
+
+  $("lineChart").innerHTML = svg;
+
+}
+
+function renderBarChart(){
+
+  const w = 1000;
+  const h = 320;
+
+  const totals = people.map(person =>
+
+    data
+      .filter(e=>e.person===person)
+      .reduce((sum,e)=>sum+e.seconds,0)
+
+  );
+
+  const max = Math.max(
+    60,
+    ...totals
+  );
+
+  let svg = `
+    <svg
+      viewBox="0 0 ${w} ${h}"
+      width="100%"
+      height="100%"
+    >
+  `;
+
+  people.forEach((person,index)=>{
+
+    const bw = 180;
+    const gap = 90;
+
+    const x =
+      90 + index * (bw + gap);
+
+    const bh =
+      totals[index]/max *
+      220;
+
+    const y =
+      260 - bh;
+
+    const hours = (
+      totals[index] / 3600
+    ).toFixed(2);
+
+    svg += `
+
+      <rect
+        x="${x}"
+        y="${y}"
+        width="${bw}"
+        height="${bh}"
+        rx="18"
+        fill="${colors[index]}"
+      />
+
+      <text
+        x="${x+45}"
+        y="290"
+        font-size="18"
+      >
+        ${person}
+      </text>
+
+      <text
+        x="${x+55}"
+        y="${y-12}"
+        font-size="16"
+        font-weight="700"
+      >
+        ${hours} h
+      </text>
+
+    `;
+
+  });
+
+  svg += "</svg>";
+
+  $("barChart").innerHTML = svg;
+
+}
+
+function render(){
+
+  renderStats();
+
+  renderTable();
+
+  renderLineChart();
+
+  renderBarChart();
+
+}
+
+render();
+
+</script>
+
 </body>
 </html>
